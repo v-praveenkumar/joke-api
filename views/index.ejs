@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    fieldset {
+      border: none;
+      margin-bottom: 20px;
+    }
+
+    legend {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .category-list {
+      display: none; /* Initially hidden */
+      margin-left: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h2>Joke</h2>
+  <form action="/joke" method="post">
+    <!-- Joke Category -->
+    <fieldset>
+      <legend>Joke Category</legend>
+      <label>
+        <input type="radio" value="Any" name="category" id="any">
+        Any
+      </label>
+      <label>
+        <input type="radio" value="custom" name="category" id="custom">
+        Custom
+      </label>
+
+      <div class="category-list" id="categoryList">
+        <fieldset>
+          <legend>Custom Categories</legend>
+          <label>
+            <input type="checkbox" value="programming" name="custom-category">
+            Programming
+          </label>
+          <label>
+            <input type="checkbox" value="misc" name="custom-category">
+            Misc
+          </label>
+          <label>
+            <input type="checkbox" value="dark" name="custom-category">
+            Dark
+          </label>
+          <label>
+            <input type="checkbox" value="pun" name="custom-category">
+            Pun
+          </label>
+          <label>
+            <input type="checkbox" value="christmas" name="custom-category">
+            Christmas
+          </label>
+          <label>
+            <input type="checkbox" value="spooky" name="custom-category">
+            Spooky
+          </label>
+        </fieldset>
+
+      </div>
+      <fieldset>
+        <legend>BlackList</legend>
+        <label>
+          <input type="checkbox" value="religious" name="blacklist">
+          Religious
+        </label>
+        <label>
+          <input type="checkbox" value="political" name="blacklist">
+          Political
+        </label>
+        <label>
+          <input type="checkbox" value="racist" name="blacklist">
+          Racist
+        </label>
+        <label>
+          <input type="checkbox" value="sexist" name="blacklist">
+          Sexist
+        </label>
+        <label>
+          <input type="checkbox" value="explicit" name="blacklist">
+          Explicit
+        </label>
+      </fieldset>
+    </fieldset>
+
+    <fieldset>
+      <legend>Joke Type</legend>
+      <label>
+        <input type="radio" name="type" value="single">
+        Single
+      </label>
+      <label>
+        <input type="radio" name="type" value="twopart">
+        Two-Part
+      </label>
+    </fieldset>
+
+    <button type="submit">Get Joke</button>
+  </form>
+
+  <%if(locals.delivery){%>
+    setup:<%=setup%><br>
+    delivery:<%=delivery%>
+  <%}else{%>
+    <%=locals.joke%>
+  <%}%>
+
+
+  <script>
+    // Get references to elements
+    const anyRadio = document.getElementById('any');
+    const customRadio = document.getElementById('custom');
+    const categoryList = document.getElementById('categoryList');
+
+    // Add event listeners
+    anyRadio.addEventListener('change', () => {
+      categoryList.style.display = 'none'; // Hide category list when "Any" is selected
+    });
+
+    customRadio.addEventListener('change', () => {
+      categoryList.style.display = 'block'; // Show category list when "Custom" is selected
+    });
+  </script>
+</body>
+</html>
